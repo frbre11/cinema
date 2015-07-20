@@ -1,20 +1,40 @@
-FROM ubuntu:14.04
-MAINTAINER James Turnbull <james@example.com>
-ENV REFRESHED_AT 2014-06-01
-
-RUN apt-get -yqq update
-RUN apt-get -yqq install tomcat7 default-jdk
-
-ENV CATALINA_HOME /usr/share/tomcat7
-ENV CATALINA_BASE /var/lib/tomcat7
-ENV CATALINA_PID /var/run/tomcat7.pid
-ENV CATALINA_SH /usr/share/tomcat7/bin/catalina.sh
-ENV CATALINA_TMPDIR /tmp/tomcat7-tomcat7-tmp
-
-RUN mkdir -p $CATALINA_TMPDIR
-
-VOLUME [ "/var/lib/tomcat7/webapps/" ]
-
+FROM centos:7
+MAINTAINER Francois Breton <francois.breton@dti.ulaval.ca>
 EXPOSE 8080
 
-ENTRYPOINT [ "/usr/share/tomcat7/bin/catalina.sh", "run" ]
+# make sure the system is up to date
+RUN yum update -y
+
+# install openJava
+RUN yum install java wget tar top -y
+
+# move to /opt and download the tomcat package
+RUN cd /opt && wget "http://mirror.vorboss.net/apache/tomcat/tomcat-7/v7.0.63/bin/apache-tomcat-7.0.63.tar.gz" 
+RUN cd /opt && tar -zxvf apache-tomcat-7.0.63.tar.gz 
+RUN cd /opt && ln -sf apache-tomcat-7.0.63 tomcat
+
+# set environment variables
+RUN echo '#!/bin/bash' > /etc/profile.d/script.sh 
+RUN echo 'CATALINA_HOME=/opt/tomcat' >> /etc/profile.d/script.sh
+RUN echo 'PATH=$CATALINA_HOME/bin:$PATH' >> /etc/profile.d/script.sh
+RUN echo 'export PATH CATALINA_HOME' >> /etc/profile.d/script.sh
+RUN echo 'export CLASSPATH=.' >> /etc/profile.d/script.sh
+RUN chmod +x /etc/profile.d/script.sh
+
+# make env variables permenant
+RUN source /etc/profile.d/script.sh
+
+# make tomcat scripts executable
+RUN chmod +x /opt/tomcat/bin/startup.sh
+RUN chmod +x /opt/tomcat/bin/shutdown.sh
+RUN chmod +x /opt/tomcat/bin/catalina.sh
+
+# Cleanup webapps directory
+RUN cd /opt/apache-tomcat-7.0.57/webapps && rm -rf *
+
+ADD target/cinema-1.0.0 /opt/apache-tomcat-7.0.57/webapps/
+
+#Fire up tomcat
+CMD /opt/apache-tomcat-7.0.57/bin/startup.sh && tail -F /opt/apache-tomcat-7.0.57/logs/catalina.out
+
+
