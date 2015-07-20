@@ -1,0 +1,49 @@
+.v-button-link-margin {
+	border: none;
+	text-align: left !important;
+	background: transparent;
+	padding: 0;
+	color: inherit;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-ie-user-select: text;
+	user-select: text;
+}
+
+.v-sa  .v-button-link-margin:focus {
+	outline-offset: -3px;
+}
+
+.v-button-link-margin .v-button-caption {
+	text-decoration: underline;
+	color: inherit;
+	text-align: left;
+}
+
+.v-button-link-margin, .v-disabled.v-button-link-margin, .v-button-link-margin:focus, .v-button-link-margin:active, .v-button-link-margin:hover, .v-button-link-margin-pressed, button.v-nativebutton-link-margin, .v-disabled.v-nativebutton-link-margin, button.v-nativebutton-link-margin:focus, button.v-nativebutton-link-margin:active, button.v-nativebutton-link-margin:hover, button.v-nativebutton-link-margin-pressed, .v-button.v-button-link-margin .v-button-wrap, .v-button.v-button-link-margin:focus .v-button-wrap, .v-button.v-button-link-margin:active .v-button-wrap, .v-disabled.v-button.v-button-link-margin .v-button-wrap {
+	color: #5B677D;
+	font-weight: normal;
+	border: none;
+	border-style: none;
+	background: transparent;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: inherit;
+	-webkit-box-shadow: none;
+	-mox-box-shadow: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	text-shadow: none;
+	height: auto;
+}
+
+.v-button-link-margin:hover {
+	color: #0066cc;
+	text-decoration: none;
+}
+
+.v-button-link-margin:focus, .v-sa  .v-button-link-margin:focus {
+	outline: 1px dotted #1b699f;
+	outline-offset: -1px;
+}
