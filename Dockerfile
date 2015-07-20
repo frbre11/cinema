@@ -30,11 +30,11 @@ RUN chmod +x /opt/tomcat/bin/shutdown.sh
 RUN chmod +x /opt/tomcat/bin/catalina.sh
 
 # Cleanup webapps directory
-RUN cd /opt/apache-tomcat-7.0.57/webapps && rm -rf *
+RUN cd /opt/apache-tomcat-7.0.63/webapps && rm -rf *
 
-ADD target/cinema-1.0.0 /opt/apache-tomcat-7.0.57/webapps/
+ADD target/cinema-1.0.0 /opt/apache-tomcat-7.0.63/webapps/cinema
 
 #Fire up tomcat
-CMD /opt/apache-tomcat-7.0.57/bin/startup.sh && tail -F /opt/apache-tomcat-7.0.57/logs/catalina.out
+CMD /opt/apache-tomcat-7.0.63/bin/startup.sh && tail -F /opt/apache-tomcat-7.0.63/logs/catalina.out
 
 
