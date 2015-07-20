@@ -28,6 +28,7 @@ RUN source /etc/profile.d/script.sh
 RUN chmod +x /opt/tomcat/bin/startup.sh
 RUN chmod +x /opt/tomcat/bin/shutdown.sh
 RUN chmod +x /opt/tomcat/bin/catalina.sh
+RUN chmod +w /opt/tomcat
 
 # Cleanup webapps directory
 RUN cd /opt/apache-tomcat-7.0.63/webapps && rm -rf *
